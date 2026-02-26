@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LiftEats — Gym Nutrition Tracking</title>
+  <meta name="description" content="LiftEats helps you track meals, estimate macros with AI, and stay consistent with your gym nutrition." />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #111826;
+      --text: #e8eef7;
+      --muted: #a7b2c2;
+      --accent: #ff5a4f;
+      --accent2: #7bd957;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 980px;
+      font-synthesis-weight: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 70% -10%, rgba(255,90,79,.25), transparent 55%),
+                  radial-gradient(900px 600px at 0% 0%, rgba(123,217,87,.18), transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 40px 18px 56px; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; padding: 10px 0 24px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 700; letter-spacing: .2px;
+    }
+    .logo {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,90,79,.95), rgba(255,90,79,.55));
+      box-shadow: 0 10px 25px rgba(255,90,79,.18);
+      display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .logo span { font-size: 22px; }
+    nav { display: flex; gap: 12px; flex-wrap: wrap; }
+    .pill {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+    }
+    .pill:hover { border-color: rgba(255,255,255,.18); color: var(--text); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 10px;
+    }
+    @media (max-width: 880px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: rgba(17,24,38,.70);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 40px;
+      line-height: 1.12;
+      letter-spacing: -.6px;
+    }
+    @media (max-width: 520px) { h1 { font-size: 34px; } }
+    .sub { color: var(--muted); font-size: 16px; margin: 0 0 18px; }
+    .ctaRow { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 600;
+    }
+    .btnPrimary {
+      background: linear-gradient(135deg, rgba(255,90,79,.95), rgba(255,90,79,.65));
+      border-color: rgba(255,90,79,.55);
+      box-shadow: 0 14px 30px rgba(255,90,79,.18);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .fine { margin-top: 14px; color: var(--muted); font-size: 13px; }
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 880px) { .grid3 { grid-template-columns: 1fr; } }
+    .feat h3 { margin: 0 0 6px; font-size: 16px; }
+    .feat p { margin: 0; color: var(--muted); font-size: 14px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .dot {
+      width: 9px; height: 9px; border-radius: 999px; background: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(123,217,87,.15);
+    }
+    footer {
+      margin-top: 28px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .kvs { margin-top: 10px; display: grid; gap: 8px; }
+    .kv {
+      display: flex; justify-content: space-between; gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .kv b { color: var(--text); font-weight: 650; }
+    .smallPrint { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><span>🍽️</span></div>
+        <div>
+          <div>LiftEats</div>
+          <div style="color: var(--muted); font-size: 12px; margin-top: 1px;">Gym nutrition tracking + AI macro estimates</div>
+        </div>
+      </div>
+      <nav>
+        <a class="pill" href="./privacy">Privacy Policy</a>
+        <a class="pill" href="./terms">Terms of Service</a>
+        <a class="pill" href="mailto:alataric747@gmail.com">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <div class="badge"><span class="dot"></span> Legal + App Links</div>
+        <h1>LiftEats helps you stay consistent with gym nutrition.</h1>
+        <p class="sub">
+          Track meals, estimate macros with AI, and build habits that support your training.
+          Designed for people who lift and want simple, fast logging.
+        </p>
+
+        <div class="ctaRow">
+          <a class="btn btnPrimary" href="./privacy">Read Privacy Policy →</a>
+          <a class="btn" href="./terms">Read Terms →</a>
+        </div>
+
+        <p class="fine">
+          Note: AI macro estimates are approximations and should not be treated as medical advice.
+        </p>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>📸 Photo logging (optional)</h3>
+            <p>Estimate macros from a meal photo. If enabled, photos may be processed to generate results.</p>
+          </div>
+          <div class="feat">
+            <h3>🧠 AI estimates</h3>
+            <p>Fast macro estimation with confidence + warnings when portion sizes are unclear.</p>
+          </div>
+          <div class="feat">
+            <h3>🔒 Account controls</h3>
+            <p>Sign in with Apple, Google, or email. You can request account deletion from inside the app.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin: 0 0 10px; font-size: 18px;">Data & billing snapshot</h2>
+        <div class="kvs">
+          <div class="kv"><span>Authentication</span><b>Firebase Auth (Apple / Google / Email)</b></div>
+          <div class="kv"><span>Data storage</span><b>Firestore (plus Storage optional)</b></div>
+          <div class="kv"><span>Analytics</span><b>Not enabled (may in future)</b></div>
+          <div class="kv"><span>Pricing</span><b>Subscription-based</b></div>
+        </div>
+        <p class="smallPrint">
+          This page exists to provide official app links for Google OAuth consent and other platform requirements.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> LiftEats</div>
+      <div>
+        <a href="./privacy-policy.html">Privacy</a> ·
+        <a href="./terms.html">Terms</a> ·
+        <a href="mailto:ahmed.ali.tariq@msn.com">Support</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
